@@ -1,3 +1,3 @@
 # C - Simple Shell Project
 
-## simple UNIX command interpreter
+## A Simple UNIX Command Interpreter
