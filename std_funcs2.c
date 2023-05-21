@@ -60,6 +60,31 @@ int _puts(const char *str)
 }
 
 /**
+ * _puts_err - prints a string to stderr
+ * @str: string to print
+ *
+ * Return: count of characters printed
+ */
+
+int _puts_err(const char *str)
+{
+	int i = 0, count = 0;
+
+	if (str)
+	{
+		while (str[i] != '\0')
+		{
+			write(2, &str[i], 1);
+			count += 1;
+			i++;
+		}
+	}
+
+	return (count);
+}
+
+
+/**
  * _strcmp - compares two strings
  * @s1: first string
  * @s2: second string

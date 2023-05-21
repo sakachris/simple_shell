@@ -21,25 +21,21 @@ void sigint_handler(int sigint_code)
  *
  * Return: Always 0 on success
  */
-
-int main(int ac, char **av)
+int main(int ac __attribute__((unused)), char **av)
 {
-	char *user_input = NULL;
+	char *en, *cmd, *user_input = NULL;
+	char **cmd_list, **paths;
 	ssize_t c_read;
 	size_t n;
-
-
-	(void)ac;
-	(void)av;
+	int counter = 0;
 
 	while (1)
 	{
 		signal(SIGINT, sigint_handler);
 		if (isatty(STDIN_FILENO))
-		{
 			_puts("($) ");
-		}
 		c_read = getline(&user_input, &n, stdin);
+		counter++;
 		if (c_read == -1)
 		{
 			if (isatty(STDIN_FILENO))
@@ -48,12 +44,23 @@ int main(int ac, char **av)
 			exit(EXIT_FAILURE);
 		}
 		if (user_input[0] == '\n')
+			continue;
+		cmd_list = tokenize(user_input);
+		built_in(cmd_list, user_input);
+		en = _getenv("PATH");
+		paths = path_list(en, cmd_list[0]);
+		cmd = test_path(paths, cmd_list);
+		if (cmd != NULL)
+			execute(cmd, cmd_list);
+		else
 		{
+			cmd_not_found(av, counter, cmd_list);
+			free_malloc(cmd_list);
+			free_malloc(paths);
 			continue;
 		}
-		central(user_input);
+		free_malloc(cmd_list);
+		free_malloc(paths);
 	}
-	free(user_input);
-
 	return (0);
 }

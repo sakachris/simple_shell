@@ -32,9 +32,4 @@ void execute(char *cmd, char **av)
 			} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 		}
 	}
-	else
-	{
-		perror("./hsh");
-		return;
-	}
 }

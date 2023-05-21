@@ -17,6 +17,7 @@ char *test_path(char **paths, char **cmd_list)
 	if (stat(cmd_list[0], &st) == 0)
 	{
 		match = cmd_list[0];
+		return (match);
 	}
 	else
 	{
@@ -25,9 +26,10 @@ char *test_path(char **paths, char **cmd_list)
 			if (stat(paths[i], &st) == 0)
 			{
 				match = paths[i];
+				return (match);
 			}
 		}
 	}
 
-	return (match);
+	return (NULL);
 }
