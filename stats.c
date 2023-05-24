@@ -4,7 +4,6 @@
  * testing_path - finds the path of a given command
  * @paths: array of strings of the paths
  * @cmd_list: array of strings of commands passed
- *
  * Return: matching path
  */
 
