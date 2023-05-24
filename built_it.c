@@ -4,7 +4,6 @@
  * built_it - executes,exits and environments commands
  * @cmd: list of commands
  * @str: user input
- *
  * Return: Nothing
  */
 
