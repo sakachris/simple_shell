@@ -11,7 +11,7 @@ char **tokenize(char *str)
 {
 	char **cmd_list = NULL;
 	char *token;
-	const char *delim = " \n";
+	const char *delim = " \t\n";
 	int i, words = word_count(str);
 
 	cmd_list = malloc(sizeof(cmd_list) * (words + 1));

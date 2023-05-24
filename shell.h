@@ -29,4 +29,5 @@ void free_malloc(char **str);
 char *test_path(char **paths, char **cmd_list);
 void cmd_not_found(char **av, int counter, char **cmd_list);
 void built_in(char **cmd, char *str);
+void getline_err(char *user_input);
 #endif /* __SHELL_H__ */

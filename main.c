@@ -37,15 +37,15 @@ int main(int ac __attribute__((unused)), char **av)
 		c_read = getline(&user_input, &n, stdin);
 		counter++;
 		if (c_read == -1)
-		{
-			if (isatty(STDIN_FILENO))
-				_putchar('\n');
-			free(user_input);
-			exit(EXIT_FAILURE);
-		}
+			getline_err(user_input);
 		if (user_input[0] == '\n')
 			continue;
 		cmd_list = tokenize(user_input);
+		if (cmd_list[0] == NULL)
+		{
+			free(cmd_list);
+			continue;
+		}
 		built_in(cmd_list, user_input);
 		en = _getenv("PATH");
 		paths = path_list(en, cmd_list[0]);
