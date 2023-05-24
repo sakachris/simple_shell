@@ -3,6 +3,7 @@
 /**
  * free_malloc - free malloc allocated to array of strings
  * @str: array of strings
+ *
  * Return: Nothing
  */
 
