@@ -17,7 +17,6 @@ char **tokenize(char *str)
 	cmd_list = malloc(sizeof(cmd_list) * (words + 1));
 	if (!cmd_list)
 	{
-		/*free(cmd_list);*/
 		return (NULL);
 	}
 	token = strtok(str, delim);
