@@ -23,17 +23,14 @@ void sigint_handler(int sigint_code)
  */
 int main(int ac __attribute__((unused)), char **av)
 {
-	char *en, *cmd, *user_input = NULL;
-	char **cmd_list, **paths;
+	char *en, *cmd, *user_input = NULL, **cmd_list, **paths;
 	ssize_t c_read;
 	size_t n;
 	int counter = 0;
 
 	while (1)
 	{
-		signal(SIGINT, sigint_handler);
-		if (isatty(STDIN_FILENO))
-			_puts("($) ");
+		prompt();
 		c_read = getline(&user_input, &n, stdin);
 		counter++;
 		if (c_read == -1)
@@ -47,6 +44,11 @@ int main(int ac __attribute__((unused)), char **av)
 			continue;
 		}
 		built_in(cmd_list, user_input);
+		if (_strcmp(cmd_list[0], "env") == 0)
+		{
+			print_env(cmd_list);
+			continue;
+		}
 		en = _getenv("PATH");
 		paths = path_list(en, cmd_list[0]);
 		cmd = test_path(paths, cmd_list);
@@ -54,9 +56,7 @@ int main(int ac __attribute__((unused)), char **av)
 			execute(cmd, cmd_list);
 		else
 		{
-			cmd_not_found(av, counter, cmd_list);
-			free_malloc(cmd_list);
-			free_malloc(paths);
+			cmd_not_found(av, counter, cmd_list, paths);
 			continue;
 		}
 		free_malloc(cmd_list);
